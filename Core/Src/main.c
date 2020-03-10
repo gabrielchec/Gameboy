@@ -107,11 +107,29 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   system_init();
-  lcd_write_line("Piotrek to pedal.", 0, 0);
+
+  int x = 1;
+  int y = 1;
+  int step_x = 1;
+  int step_y = 2;
 
   while (1)
   {
+	  lcd_set_point(0,x,y);
+	  //lcd_set_point(1,33,53);
+	  if(x <= 0 || x >= LCD_COL_SIZE)	step_x = -step_x;
 
+	  if(y <= 0 || y >= LCD_ROW_SIZE)	step_y = -step_y;
+
+
+	  x +=step_x;
+	  y +=step_y;
+	  lcd_set_point(1,x,y);
+
+	  HAL_Delay(100);
+
+
+	  //lcd_write_line(t, 1, 4);
 	  lcd_data(display, sizeof(display));
 
 

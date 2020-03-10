@@ -1,10 +1,26 @@
 #include "system.h"
 
+void lcd_set_point(_Bool value, uint8_t x, uint8_t y){
+	uint8_t actual = display[ x + (y >> 3) * LCD_COL_SIZE];
+
+	if(value)
+		display[ x + (y >> 3) * LCD_COL_SIZE] = actual | 1 << (0x07 & y);
+	else
+		display[ x + (y >> 3) * LCD_COL_SIZE] = ~((~actual) | 1 << (0x07 & y))  ;
+}
+
+
 void lcd_write_line(uint8_t* data, uint8_t row, uint8_t col){
+	if( row < 0){
+		data -= row;
+		row = 0;
+	}
+
 	uint8_t* buffer = &display[row * LCD_COL_SIZE + col];
 	while(*(data) && (buffer < &display[(row+1) * LCD_COL_SIZE])){
-		for(int i = 0; i < 5; i++){
+		for(int i = 0 ; i < 5; i++){
 			*buffer++ = font_ASCII[(int)*data - (int)' '][i];
+			if(!*(data)) break;
 		}
 		data++;
 		*buffer++ = 0;

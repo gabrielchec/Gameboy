@@ -13,3 +13,4 @@ extern void lcd_cmd(uint8_t cmd);
 extern void lcd_data(const uint8_t* data, int size);
 extern void lcd_write_long_text(uint8_t* data, uint8_t row, uint8_t col);
 extern void lcd_write_line(uint8_t* data, uint8_t row, uint8_t col);
+extern void lcd_set_point(_Bool value, uint8_t row, uint8_t col);

@@ -1,0 +1,6 @@
+system.c:3:6:lcd_write_line	24	static
+system.c:15:6:lcd_write_long_text	24	static
+system.c:26:6:lcd_reset	8	static
+system.c:31:6:lcd_cmd	16	static
+system.c:38:6:lcd_data	16	static
+system.c:46:6:system_init	8	static

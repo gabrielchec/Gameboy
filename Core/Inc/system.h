@@ -11,12 +11,12 @@ typedef struct {
  }Point;
 
 
+
 SPI_HandleTypeDef hspi2;
 ADC_HandleTypeDef hadc1;
 
 uint16_t joystick[2];
 extern uint8_t display[LCD_SIZE];
-
 extern void system_init();
 
 extern void lcd_reset();														

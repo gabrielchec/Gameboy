@@ -1,12 +1,24 @@
 #include "system.h"
 
-void lcd_set_point(_Bool value, uint8_t x, uint8_t y){
+
+
+void lcd_set_point_v(_Bool value, uint8_t x, uint8_t y){
 	uint8_t actual = display[ x + (y >> 3) * LCD_COL_SIZE];
 
 	if(value)
 		display[ x + (y >> 3) * LCD_COL_SIZE] = actual | 1 << (0x07 & y);
 	else
 		display[ x + (y >> 3) * LCD_COL_SIZE] = ~((~actual) | 1 << (0x07 & y))  ;
+}
+
+
+void lcd_set_point_p(_Bool value, const Point * point){
+	uint8_t actual = display[ point->x + (point->y >> 3) * LCD_COL_SIZE];
+
+	if(value)
+		display[ point->x + (point->y >> 3) * LCD_COL_SIZE] = actual | 1 << (0x07 & point->y);
+	else
+		display[ point->x + (point->y >> 3) * LCD_COL_SIZE] = ~((~actual) | 1 << (0x07 & point->y))  ;
 }
 
 

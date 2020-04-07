@@ -66,8 +66,6 @@ void Error_Handler(void);
 #define LCD_CE_GPIO_Port GPIOC
 #define LCD_RST_Pin GPIO_PIN_3
 #define LCD_RST_GPIO_Port GPIOC
-#define JOYSTICK_BUTTON_Pin GPIO_PIN_0
-#define JOYSTICK_BUTTON_GPIO_Port GPIOA
 #define JOYSTICK_X_Pin GPIO_PIN_1
 #define JOYSTICK_X_GPIO_Port GPIOA
 #define JOYSTICK_Y_Pin GPIO_PIN_4
@@ -76,6 +74,8 @@ void Error_Handler(void);
 #define LCD_CLK_GPIO_Port GPIOB
 #define LCD_MOSI_Pin GPIO_PIN_15
 #define LCD_MOSI_GPIO_Port GPIOB
+#define JOYSTICK_BUTTON_Pin GPIO_PIN_7
+#define JOYSTICK_BUTTON_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

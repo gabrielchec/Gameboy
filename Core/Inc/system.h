@@ -5,6 +5,7 @@
 #include "main.h"
 #include "FONT.h"
 
+
 typedef struct {
 	int x; 
 	int y; 
@@ -18,7 +19,7 @@ ADC_HandleTypeDef hadc1;
 uint16_t joystick[2];
 extern uint8_t display[LCD_SIZE];
 extern void system_init();
-
+	
 extern void lcd_reset();														
 extern void lcd_cmd(uint8_t cmd);											
 extern void lcd_data(const uint8_t* data, int size);							
@@ -29,5 +30,13 @@ extern void lcd_set_point_p(_Bool value, const Point * point);
 
 extern Point joy_move();											//return point with values with range [-512, 512]
 extern void joy_scale(Point *p, uint8_t s);							//scale point by s value
+extern void joy_direction();												//return point with values {-1,0,1} 
+extern void joy_button_pressed();
+_Bool joystick_button_pressed;										//1 if button ist pressed, 0 if button iss pulled
+_Bool joystick_button_toggle;										//toogle joystick button when pressed
+_Bool joystick_changed;
+Point joystick_direction;
+
 extern Point add_points(Point * one, Point * two);					//add two points
-void joy_direction(Point * point);												//return point with values {-1,0,1} 
+
+void (*system_actual)(void);

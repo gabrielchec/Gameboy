@@ -1,0 +1,4 @@
+menu.c:4:6:menu_draw	24	static
+menu.c:19:6:menu_actual	8	static
+menu.c:28:6:menu_init	8	static
+menu.c:47:13:menu_change_set	32	static

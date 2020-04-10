@@ -1,73 +1,92 @@
 #include "menu.h"
 
 
-void menu_draw(){
-	Menu * data = main_menu;
-	int i = 0;
-	while( i < MAIN_MENU_SIZE){
-		lcd_write_long_text(data[i].name, i, 0);
-		if(data[i].set){
-			uint8_t* buffer = &display[i * LCD_COL_SIZE];
+void menu_draw(Menu *data){
+	lcd_write_long_text(data->title.name, 0, 0);
+	for(uint8_t i = data->visible[0], k = 1; i < data->visible[1]; i++, k++){
+		lcd_write_long_text(data->data[i].name, k, 0);
+		if(k - 1 + data->visible[0] == data->set){
+			uint8_t* buffer = &display[k * LCD_COL_SIZE];
 			for(int j = 0; j < LCD_COL_SIZE - 5; j++){
 				buffer[j] = ~buffer[j];
 			}
 		}
-		i++;
 	}
 }
 
 void menu_actual(){
-	if(joystick_changed){
-		if(joystick_direction.y){
-			menu_change_set(joystick_direction.y);
-			menu_draw();
+	if(is_initialized){
+		if(joystick_changed){
+			if(joystick_direction.y){
+				menu_change_set(actual_menu, joystick_direction.y);
+				menu_draw(actual_menu);
+			}
 		}
 	}
+}
+
+void menu_set(Menu *data, char *title, char items[][15], uint8_t size, _Bool * settable){
+	data->size = size;
+	strcpy(data->title.name ,"List of games ");
+	data->title.settable = 0;
+	for(uint8_t i = 0;i < size; i++){
+		strcpy(data->data[i].name, *(items + i));
+		data->data[i].settable = settable[i];
+
+	}
+	data->set = 0;
+	data->visible[0] = 0;
+	data->visible[1] = 5;
 }
 
 void menu_init(){
-	strcpy(main_menu[0].name,"List of games ");
-	main_menu[0].settable = 0;
-	main_menu[0].set = 0;
+	char game_list[7][15];
+	strcpy(game_list[0],"Snake         ");
+	strcpy(game_list[1],"Tetris        ");
+	strcpy(game_list[2],"Tic Tac Toe   ");
+	strcpy(game_list[3],"Pokemon       ");
+	strcpy(game_list[4],"Minesweeper   ");
+	strcpy(game_list[5],"Sudoku        ");
+	strcpy(game_list[6],"Truth or dare ");
 
-	strcpy(main_menu[1].name, "Snake         ");
-	main_menu[1].settable = 1;
-	main_menu[1].set = 1;
-
-	strcpy(main_menu[2].name, "Tetris        ");
-	main_menu[2].settable = 1;
-	main_menu[2].set = 0;
-
-	strcpy(main_menu[3].name, "Tic Tac Toe   ");
-	main_menu[3].settable = 1;
-	main_menu[3].set = 0;
-	//menu_draw();
+	_Bool set_list[6] = {1, 1, 1, 0, 1, 1, 1};
+	char title[15];
+	strcpy(title,  "List of games ");
+	menu_set(&main_menu, title, game_list, 7, set_list);
+	actual_menu = &main_menu;
+	is_initialized = 1;
 }
 
-extern void menu_change_set(int dir){
-	Menu * data = main_menu;
-	for(uint8_t i = 0; i < MAIN_MENU_SIZE;i++){
-		if(data[i].set == 1){
-			if(dir == 1){
-				int n = i < MAIN_MENU_SIZE -1 ? i + 1 : 0;
-				while(!data[n].settable){
-					n++;
-					if(n >= MAIN_MENU_SIZE) n = 0;
-				}
-				data[n].set = 1;
-				data[i].set = 0;
-			}
-			else if(dir == -1){
-				int p = i > 0 ? i - 1 : MAIN_MENU_SIZE - 1;
-				while(!data[p].settable){
-					p--;
-					if(p < 0) p = MAIN_MENU_SIZE - 1;
-				}
-				data[p].set = 1;
-				data[i].set = 0;
-			}
-			break;
+void menu_change_set( Menu * data, int dir){
+	int i = data->set;
+
+	int n = 0;
+	if(dir == 1){
+		n = i < (data->size) - 1 ? i + 1 : 0;
+		while(!(data->data[n].settable)){
+			n++;
+			if(n >= data->size) n = 0;
 		}
 	}
+	else if(dir == -1){
+		n = i > 0 ? i - 1 : (data->size) - 1;
+		while(!data->data[n].settable){
+			n--;
+			if(n < 0) n = data->size - 1;
+		}
+	}
+	data->set = n;
+	if(n >= data->visible[1]){
+		data->visible[1] = n + 1;
+		data->visible[0] = n - 4;
+	}
+	else if( n < data->visible[0]){
+		data->visible[0] = n;
+		data->visible[1] = n + 5;
+	}
+}
+
+extern void menu_pressed(){
+
 }
 

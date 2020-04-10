@@ -1,4 +1,6 @@
-menu.c:4:6:menu_draw	24	static
-menu.c:19:6:menu_actual	8	static
-menu.c:28:6:menu_init	8	static
-menu.c:47:13:menu_change_set	32	static
+menu.c:4:6:menu_draw	32	static
+menu.c:17:6:menu_actual	8	static
+menu.c:28:6:menu_set	40	static
+menu.c:42:6:menu_init	160	static
+menu.c:60:6:menu_change_set	24	static
+menu.c:89:13:menu_pressed	4	static

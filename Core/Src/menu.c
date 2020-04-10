@@ -15,9 +15,23 @@ void menu_draw(Menu *data){
 }
 
 void menu_actual(){
+	static int i = 0;
+	static _Bool is_hold = 0;
 	if(is_initialized){
 		if(joystick_changed){
 			if(joystick_direction.y){
+				is_hold = 1;
+				menu_change_set(actual_menu, joystick_direction.y);
+				menu_draw(actual_menu);
+			}
+			else is_hold = 0;
+
+		}
+		else{
+			if(is_hold)i++;
+			else i = 0;
+			if(i == 50){
+				i -= 10;
 				menu_change_set(actual_menu, joystick_direction.y);
 				menu_draw(actual_menu);
 			}

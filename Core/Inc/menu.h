@@ -28,7 +28,7 @@ extern void menu_init();
 extern void menu_set(Menu *data, char *title, char items[][15], uint8_t size, _Bool * settable);
 extern void menu_move();
 extern void menu_change_set(Menu * data, int dir);
-extern void menu_pressed();
+extern void menu_pressed(Menu *_data);
 extern uint8_t slide_bar[LCD_COL_SIZE * 4];
 
 #endif

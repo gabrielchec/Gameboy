@@ -36,6 +36,10 @@ void menu_actual(){
 				menu_draw(actual_menu);
 			}
 		}
+		if(joystick_button_pressed){
+			menu_pressed(actual_menu);
+		}
+
 	}
 }
 
@@ -100,7 +104,7 @@ void menu_change_set( Menu * data, int dir){
 	}
 }
 
-extern void menu_pressed(){
-
+extern void menu_pressed(Menu * data){
+	system_actual = data->data[data->set].fun;
 }
 

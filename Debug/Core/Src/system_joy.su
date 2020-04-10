@@ -1,4 +1,3 @@
 system_joy.c:4:6:joy_scale	16	static
 system_joy.c:9:7:joy_move	16	static
 system_joy.c:14:6:joy_direction	16	static
-system_joy.c:33:7:add_points	24	static

@@ -1,7 +1,6 @@
 #include "system.h"
 
 
-
 void lcd_set_point_v(_Bool value, uint8_t x, uint8_t y){
 	uint8_t actual = display[ x + (y >> 3) * LCD_COL_SIZE];
 
@@ -22,7 +21,7 @@ void lcd_set_point_p(_Bool value, const Point * point){
 }
 
 
-void lcd_write_line(uint8_t* data, uint8_t row, uint8_t col){
+void lcd_write_line(char* data, uint8_t row, uint8_t col){
 	if( row < 0){
 		data -= row;
 		row = 0;
@@ -40,7 +39,7 @@ void lcd_write_line(uint8_t* data, uint8_t row, uint8_t col){
 }
 
 
-void lcd_write_long_text(uint8_t* data, uint8_t row, uint8_t col){
+void lcd_write_long_text(char* data, uint8_t row, uint8_t col){
 	uint8_t* buffer = &display[row * LCD_COL_SIZE + col];
 	while(*(data) && (buffer < &display[LCD_SIZE])){
 		for(int i = 0; i < 5; i++){
@@ -72,12 +71,18 @@ void lcd_data(const uint8_t* data, int size){
 }
 
 void system_init(){
+
 	lcd_reset();
 	lcd_cmd(0x21);
 	lcd_cmd(0x14);
 	lcd_cmd(0x80 | 0x3f);
 	lcd_cmd(0x20);
 	lcd_cmd(0x0c);
+}
+
+void lcd_clear(){
+	for(int i =0; i < LCD_SIZE;i++)
+		display[i] = 0x00;
 }
 
 uint8_t display[LCD_SIZE] = {

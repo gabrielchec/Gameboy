@@ -17,18 +17,17 @@ typedef struct {
 	int set;
 	uint8_t visible[2];
 
+
 }Menu;
 Menu *actual_menu;
-Menu main_menu;
-_Bool is_initialized;
 
 extern void menu_draw(Menu *data);
 extern void menu_actual();
 extern void menu_init();
-extern void menu_set(Menu *data, char *title, char items[][15], uint8_t size, _Bool * settable);
+void menu_set(Menu *data, char *title, char items[][15], uint8_t size, _Bool * settable, void (*pointers[])());
 extern void menu_move();
 extern void menu_change_set(Menu * data, int dir);
-extern void menu_pressed(Menu *_data);
+extern void menu_pressed(Menu *data);
 extern uint8_t slide_bar[LCD_COL_SIZE * 4];
 
 #endif

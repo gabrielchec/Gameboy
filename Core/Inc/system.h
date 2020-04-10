@@ -19,12 +19,12 @@ ADC_HandleTypeDef hadc1;
 uint16_t joystick[2];
 extern uint8_t display[LCD_SIZE];
 extern void system_init();
-	
-extern void lcd_reset();														
+extern void lcd_reset();	
+extern void lcd_clear();													
 extern void lcd_cmd(uint8_t cmd);											
 extern void lcd_data(const uint8_t* data, int size);							
-extern void lcd_write_long_text(uint8_t* data, uint8_t row, uint8_t col);		
-extern void lcd_write_line(uint8_t* data, uint8_t row, uint8_t col);
+extern void lcd_write_long_text(char* data, uint8_t row, uint8_t col);		
+extern void lcd_write_line(char* data, uint8_t row, uint8_t col);
 extern void lcd_set_point_v(_Bool value, uint8_t x, uint8_t y);
 extern void lcd_set_point_p(_Bool value, const Point * point);
 
@@ -35,8 +35,8 @@ extern void joy_button_pressed();
 _Bool joystick_button_pressed;										//1 if button ist pressed, 0 if button iss pulled
 _Bool joystick_button_toggle;										//toogle joystick button when pressed
 _Bool joystick_changed;
+_Bool joystick_button_changed;
 Point joystick_direction;
 
-extern Point add_points(Point * one, Point * two);					//add two points
 
 void (*system_actual)(void);

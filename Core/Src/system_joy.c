@@ -30,7 +30,4 @@ void joy_direction(){
 }
 
 
-Point add_points(Point * one, Point * two){
-	return (Point){one->x + two->x, one->y + two->y};
-}
 

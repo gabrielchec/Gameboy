@@ -1,0 +1,8 @@
+graphic.c:12:14:add_points	24	static
+graphic.c:16:14:substract_points	24	static
+graphic.c:20:6:draw_line	64	static
+graphic.c:32:6:draw_rectangle	40	static
+graphic.c:46:6:draw_triangle	32	static
+graphic.c:56:6:draw_circle	48	static
+graphic.c:74:6:circle	32	static
+graphic.c:86:13:draw_vertex	24	static

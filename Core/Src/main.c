@@ -24,7 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 //#include "menu.h"
-#include "menu.h"
+#include "run.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -69,11 +69,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 
 		 if(joystick_button_pressed && HAL_GPIO_ReadPin(JOYSTICK_BUTTON_GPIO_Port, JOYSTICK_BUTTON_Pin)){
 			 joystick_button_toggle = !joystick_button_toggle;
+			 joystick_button_changed = 1;
 		 }
-
+		 else{
+			 joystick_button_changed = 0;
+		 }
 		 joystick_button_pressed = !HAL_GPIO_ReadPin(JOYSTICK_BUTTON_GPIO_Port, JOYSTICK_BUTTON_Pin);
-
-		 system_actual();
+		 if(system_actual)
+			 system_actual();
 	 }
 
 }
@@ -109,7 +112,6 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-system_actual = menu_actual;
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -127,8 +129,7 @@ system_actual = menu_actual;
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  system_init();
-  menu_init();
+  system_setup();
   while (1)
   {
 
